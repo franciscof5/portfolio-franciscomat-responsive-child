@@ -4,7 +4,7 @@
 if ( !defined( 'ABSPATH' ) ) {
 	exit;
 }
-#<?php
+#<?php##
 wp_enqueue_script('jquery');
 wp_enqueue_script('jsapi', 'https://www.google.com/jsapi', 1 );
         
@@ -133,6 +133,7 @@ get_header(); ?>
             <div class="">
                 <div id="byYearChart" style="width: 100%;height: 400px;"></div>
             </div>
+            <p><strong>NOTES</strong>: understanding productivity. <strong>1998-2002</strong>: losted work, many ppt animations and HTML studies, The Sims 1 textures and objects. <strong>2002-2005</strong>: high school consuming a lot of time. <strong>2004</strong>: first time half-time employee. <strong>2005</strong>: first time fired, forced to entrepreneur. <strong>2006</strong>: pre-college course consumes 80% of time. <strong>2007-2010</strong>: college start, many non-computer activities like jr company and sports, few academic associations jobs. <strong>2008-2009</strong>: first home-office part/time job. <strong>2010-2012</strong>: half time entrepreneur/freelancer, failure in both. <strong>2013</strong>: full-time employee, few big projects, almost stopped entrepreneur. First time rich with gorgeous girlfriend and total family support. <strong>2014-2016</strong>: Academic master course full-dedication, again almost no time for side jobs or entrepreneur. <strong>2016</strong>: Jobs for selective processes, desperate try to restabilichment of IT career because lost of scholarship, failure to get a job, became poor. After difficulty months got failure in MsC final exam, decided to full-time entrepreneur, official F5 Sites shy restarted. No single penny earned. <strong>2017</strong>: first time full-time entrepreneur, restarting old projects almost from scratch, a lot of personal problems and ultra-low budgets situations, poorest period for me and Brazilian economy. Sold personal stuff to live. <strong>2018</strong>: Ready launch base, almost ready for growth. Forced part-time freelance for paying bills, after sold almost all personal stuff just to visit potential new costumers in an delicated risk game, no money and 5 years girlfriend couldnt take it, gone. Discredited by family and friends. After 2 years Pomodoros.com.br is finally stable again. First good freelancer job after 3 years. Life stress peak.</p>
             <!--div class="chartBox" style="display: none;">
                 <div id="longestPostsChart"></div>
             </div>
