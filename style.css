@@ -13,23 +13,8 @@ https://cyberchimps.com/responsive-theme/
 */
 @import url("../responsive/style.css");
 
-<<<<<<< HEAD
 #logo, #logo img {
 	width: 100%;
-=======
-.content {
-	padding: 20px 0 !important;
-}
-.course-container {
-	margin-bottom: 20px;
-}
-.type-page .type-course {
-	padding: 20px 0;
-}
-.lesson-template-default .type-lesson, .type-course {
-	padding: 0px 45px 30px;	
-	clear: both;
->>>>>>> 0e4b4a43ffd00007c6532ad2e402725af8a86b20
 }
 #menu-principal-1 {
 	width: 100%;
