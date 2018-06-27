@@ -4,7 +4,7 @@
 if ( !defined( 'ABSPATH' ) ) {
 	exit;
 }
-#<?php#
+#<?php##
 wp_enqueue_script('jquery');
 wp_enqueue_script('jsapi', 'https://www.google.com/jsapi', 1 );
         
