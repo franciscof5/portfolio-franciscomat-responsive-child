@@ -63,7 +63,7 @@ get_header(); ?>
         $yearWisePosts = $wpdb->get_results("
             SELECT YEAR(post_date) as post_year, COUNT(ID) as post_count 
                 FROM " . $wpdb->prefix . "posts
-                WHERE YEAR(post_date) =  '" . $year->year . "' AND post_type = 'post' 
+                WHERE YEAR(post_date) =  '" . $year->year . "' AND post_type = 'post'  AND post_status = 'publish' 
                 GROUP BY post_year
                 ORDER BY post_date ASC"
         );
