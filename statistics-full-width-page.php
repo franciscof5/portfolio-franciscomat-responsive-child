@@ -5,8 +5,8 @@ if ( !defined( 'ABSPATH' ) ) {
 	exit;
 }
 #<?php
-        load_wp_show_stats_admin_js();
-		load_wp_show_stats_admin_css();
+wp_enqueue_script('jquery');
+wp_enqueue_script('jsapi', 'https://www.google.com/jsapi', 1 );
         
 /**
  * Statistics Full Content Template
