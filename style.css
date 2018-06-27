@@ -1,0 +1,80 @@
+/*
+Theme Name: Portfolio FranciscoMat (Responsive Child)
+Theme URI: http://portfolio.franciscomat.com
+Template: responsive
+Version: 1.0
+Author: Francisco Mat
+Author URI: http://www.franciscomat.com
+Description: Made for my portfolio (Child Theme for Responsive Cyberchumps).
+
+
+Thanks to:
+https://cyberchimps.com/responsive-theme/
+*/
+@import url("../responsive/style.css");
+
+<<<<<<< HEAD
+#logo, #logo img {
+	width: 100%;
+=======
+.content {
+	padding: 20px 0 !important;
+}
+.course-container {
+	margin-bottom: 20px;
+}
+.type-page .type-course {
+	padding: 20px 0;
+}
+.lesson-template-default .type-lesson, .type-course {
+	padding: 0px 45px 30px;	
+	clear: both;
+>>>>>>> 0e4b4a43ffd00007c6532ad2e402725af8a86b20
+}
+#menu-principal-1 {
+	width: 100%;
+}
+#menu-principal-1 .menu-item-1964 {
+	/*float: right !important;*/
+}
+#menu-principal-1 .menu-item-1964 a {
+	text-transform: uppercase;
+	/*background: #3F5E94;
+	color: #FFF !important;*/
+}
+
+button[data-filter=".iso_45"],button[data-filter=".iso_58"],button[data-filter=".iso_79"],button[data-filter=".iso_76"] {
+	background-color: #98d;
+}
+
+/**/
+.rt-equal-height {
+	height: 420px;
+	overflow: hidden;
+}
+
+/*RESPONSIVE YOUTUBE**/
+.video-container {
+	position: relative;
+	padding-bottom: 56.25%;
+	padding-top: 30px;
+	height: 0;
+	overflow: hidden;
+}
+
+.video-container iframe,  
+.video-container object,  
+.video-container embed {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+
+.entry-content img, 
+.entry-content iframe, 
+.entry-content object, 
+.entry-content embed {
+        max-width: 100%;
+}
