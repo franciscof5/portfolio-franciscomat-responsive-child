@@ -262,6 +262,7 @@ get_header(); ?>
             <div class="">
                 <div id="studyByYearDiv"></div>
             </div>
+            <p><strong>NOTES</strong>: study. <strong>2004</strong>: Flash. <strong>2005</strong>: 3D skeleton and animation rendering. 3D Max.<strong>2014</strong>: Laravel PHP. <strong>2016</strong>: Selective processes for job. <strong>2017</strong>: React Javascript.</p>
         </div>
     </div>
 <?php 
