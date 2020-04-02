@@ -23,8 +23,13 @@ https://cyberchimps.com/responsive-theme/
 	/*float: right !important;*/
 }
 #menu-principal-1 .menu-item-1964 a {
+<<<<<<< HEAD
 	text-transform: uppercase;
 	/*background: #3F5E94;
+=======
+	/*text-transform: uppercase;
+	background: #3F5E94;
+>>>>>>> 06a48de9c9b6e487ee66246f1bc3a90b0d4b73fc
 	color: #FFF !important;*/
 }
 

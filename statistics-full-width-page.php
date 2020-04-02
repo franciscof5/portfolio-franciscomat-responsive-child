@@ -63,7 +63,7 @@ get_header(); ?>
         $yearWisePosts = $wpdb->get_results("
             SELECT YEAR(post_date) as post_year, COUNT(ID) as post_count 
                 FROM " . $wpdb->prefix . "posts
-                WHERE YEAR(post_date) =  '" . $year->year . "' AND post_type = 'post' 
+                WHERE YEAR(post_date) =  '" . $year->year . "' AND post_type = 'post'  AND post_status = 'publish' 
                 GROUP BY post_year
                 ORDER BY post_date ASC"
         );
@@ -84,6 +84,90 @@ get_header(); ?>
             $monthWiseArray[$year->year][$post->post_month] = $post->post_count;
         }
     }
+        $qvarEn="
+            SELECT YEAR(post_date) as post_year, COUNT(ID) as post_count 
+                FROM " . $wpdb->prefix . "posts
+
+                LEFT JOIN  $wpdb->term_relationships  as t
+                            ON ID = t.object_id
+
+                WHERE YEAR(post_date) =  '" . $year->year . "' AND post_type = 'post'  AND post_status = 'publish' 
+
+                AND t.term_taxonomy_id = 58
+
+                GROUP BY post_year
+                ORDER BY post_date ASC";
+        $qvarCl="
+            SELECT YEAR(post_date) as post_year, COUNT(ID) as post_count 
+                FROM " . $wpdb->prefix . "posts
+
+                LEFT JOIN  $wpdb->term_relationships  as t
+                            ON ID = t.object_id
+
+                WHERE YEAR(post_date) =  '" . $year->year . "' AND post_type = 'post'  AND post_status = 'publish' 
+
+                AND t.term_taxonomy_id = 45
+
+                GROUP BY post_year
+                ORDER BY post_date ASC";
+
+        $qvarPa="
+            SELECT YEAR(post_date) as post_year, COUNT(ID) as post_count 
+                FROM " . $wpdb->prefix . "posts
+
+                LEFT JOIN  $wpdb->term_relationships  as t
+                            ON ID = t.object_id
+
+                WHERE YEAR(post_date) =  '" . $year->year . "' AND post_type = 'post'  AND post_status = 'publish' 
+
+                AND t.term_taxonomy_id = 79
+
+                GROUP BY post_year
+                ORDER BY post_date ASC";
+
+        $qvarSt="
+            SELECT YEAR(post_date) as post_year, COUNT(ID) as post_count 
+                FROM " . $wpdb->prefix . "posts
+
+                LEFT JOIN  $wpdb->term_relationships  as t
+                            ON ID = t.object_id
+
+                WHERE YEAR(post_date) =  '" . $year->year . "' AND post_type = 'post'  AND post_status = 'publish' 
+
+                AND t.term_taxonomy_id = 76
+
+                GROUP BY post_year
+                ORDER BY post_date ASC";
+        $entrereneuByYearWisePosts = $wpdb->get_results($qvarEn);
+        $clietByYearWisePosts = $wpdb->get_results($qvarCl);
+        $partnerByYearWisePosts = $wpdb->get_results($qvarPa);
+        $studyByYearWisePosts = $wpdb->get_results($qvarSt);
+        #var_dump($year->year);die;
+        if(!empty($entrereneuByYearWisePosts[0]->post_year)){
+            $entrereneuByWiseArray[$entrereneuByYearWisePosts[0]->post_year] = $entrereneuByYearWisePosts[0]->post_count;
+        } else {
+            $entrereneuByWiseArray[$year->year]=0;
+        }
+        #
+        if(!empty($clietByYearWisePosts[0]->post_year)){
+            $clientByWiseArray[$clietByYearWisePosts[0]->post_year] = $clietByYearWisePosts[0]->post_count;
+        } else {
+            $clientByWiseArray[$year->year]=0;
+        }
+        #
+        if(!empty($partnerByYearWisePosts[0]->post_year)){
+            $partnerByWiseArray[$partnerByYearWisePosts[0]->post_year] = $partnerByYearWisePosts[0]->post_count;
+        } else {
+            $partnerByWiseArray[$year->year]=0;
+        }
+        #
+        if(!empty($studyByYearWisePosts[0]->post_year)){
+            $studyByWiseArray[$studyByYearWisePosts[0]->post_year] = $studyByYearWisePosts[0]->post_count;
+        } else {
+            $studyByWiseArray[$year->year]=0;
+        }
+    }
+    #var_dump($clientByWiseArray);die;
     // make the string of month wise comments according to chart's requirements
    foreach($monthWiseArray as $y => $arr){
        $test_arr = array();
@@ -94,6 +178,7 @@ get_header(); ?>
    }
     
     // most commented posts
+    #$mostCommentedPosts = $wpdb->get_results("SELECT comment_count, ID, post_title, post_author, post_date
     $mostCommentedPosts = $wpdb->get_results("SELECT comment_count, ID, post_title, post_author, post_date
         FROM $wpdb->posts wposts, $wpdb->comments wcomments
         WHERE wposts.ID = wcomments.comment_post_ID
@@ -118,7 +203,7 @@ get_header(); ?>
             GROUP BY ID
             ORDER BY post_length 
             LIMIT 5");
-    
+
     ?>
 
     <div class="wrap">
@@ -133,7 +218,9 @@ get_header(); ?>
             <div class="">
                 <div id="byYearChart" style="width: 100%;height: 400px;"></div>
             </div>
-            <p><strong>NOTES</strong>: understanding productivity. <strong>1998-2002</strong>: losted work, many ppt animations and HTML studies, The Sims 1 textures and objects. <strong>2002-2005</strong>: high school consuming a lot of time. <strong>2004</strong>: first time half-time employee. <strong>2005</strong>: first time fired, forced to entrepreneur. <strong>2006</strong>: pre-college course consumes 80% of time. <strong>2007-2010</strong>: college start, many non-computer activities like jr company and sports, few academic associations jobs. <strong>2008-2009</strong>: first home-office part/time job. <strong>2010-2012</strong>: half time entrepreneur/freelancer, failure in both. <strong>2013</strong>: full-time employee, few big projects, almost stopped entrepreneur. <strong>2014-2016</strong>: Academic master course full-dedication, again almost no time for side jobs or entrepreneur. <strong>2016</strong>: Jobs for selective processes jobs, desperate try to restabilichment IT career because lost of scholarship, failure to get a job, became poor. After difficulty months got failure in MsC final exam, decided to full-time entrepreneur, official F5 Sites shy restarted. No single penny earned. <strong>2017</strong>: first time full-time entrepreneur, restarting old projects almost from scratch, a lot of personal problems and ultra-low budgets situations, poorest period for me and Brazilian economy. <strong>2018</strong>: Ready launch base, almost ready for growth. Forced part-time freelance for paying bills. Pomodoros.com.br stable again.</p>
+
+            <p><strong>NOTES</strong>: understanding productivity. <strong>1998-2002</strong>: losted work, many ppt animations and HTML studies, The Sims 1 textures and objects. <strong>2002-2005</strong>: high school consuming a lot of time. <strong>2004</strong>: first time half-time employee, many one weekend works. <strong>2005</strong>: first time fired, forced to entrepreneur. Abandonated educational projects for focusing in Flash games lauching. <strong>2006</strong>: pre-college course consumes 90% of time. <strong>2007-2010</strong>: college start, many non-computer activities like jr company and sports, few academic associations jobs. <strong>2008-2009</strong>: first home-office part/time job. <strong>2010</strong>: losted recurrent client to focus on conclusion course work and write. <strong>2011-2012</strong>: half time entrepreneur/freelancer, failure in both. <strong>2013</strong>: full-time employee, few big projects, almost stopped entrepreneur. First time rich with gorgeous girlfriend and total family support. Suffered to stop drink alcohol for gain focus. <strong>2014-2016</strong>: Academic master course full-dedication, again almost no time for side jobs or entrepreneur. Worked during vacations, weekends and holidays. <strong>2016</strong>: Jobs for selective processes, desperate try to reestablishment of IT career because lost of scholarship, failure to get a job, became poor. After difficulty months got failure in MsC final exam, decided to full-time entrepreneur, official F5 Sites shy restarted. No single penny earned. <strong>2017</strong>: first time full-time entrepreneur, restarting old projects almost from scratch, a lot of personal problems and ultra-low budgets situations, poorest period for me and Brazilian economy. Sold personal stuff to live. Started many video productions, more than 50 videos published not  listed in here. <strong>2018</strong>: Ready launch base, almost ready for growth. Forced part-time freelance for paying bills, after sold almost all personal stuff just to visit potential new costumers in an delicated risk game, no money and 5 years girlfriend couldnt take it, gone. Discredited by family and friends. After 2 years Pomodoros.com.br is finally stable again. First good freelancer job after 3 years, months of full-time jobs search without sucess. Life stress peak, years without holidays or paid rest. After 13 years of first try, finally official Portfolio launched, tons of old jobs recovered made possible a clear career review.</p>
+
             <!--div class="chartBox" style="display: none;">
                 <div id="longestPostsChart"></div>
             </div>
@@ -161,6 +248,58 @@ get_header(); ?>
             </div>
         </div>
     </div>
+
+            <h3>Disaggregated Product Owner Stats:</h3>
+            <hr style="clear:both">
+            <div class="">
+                <div id="entrepreneurByYear"></div>
+            </div>
+
+            <hr style="clear:both">
+            <div class="">
+                <div id="clientByYearDiv"></div>
+            </div>
+            
+            <hr style="clear:both">
+            <div class="">
+                <div id="partnerByYearDiv"></div>
+            </div>
+
+            <hr style="clear:both">
+            <div class="">
+                <div id="studyByYearDiv"></div>
+            </div>
+            <p><strong>NOTES</strong>: study. <strong>2004</strong>: Flash. <strong>2005</strong>: 3D skeleton and animation rendering. 3D Max.<strong>2014</strong>: Laravel PHP. <strong>2016</strong>: Selective processes for job. <strong>2017</strong>: React Javascript.</p>
+        </div>
+    </div>
+<?php 
+
+// get total category
+    $totalCategory = wp_count_terms('category');
+    
+    // get used and unused category
+    $unusedCategory = $wpdb->get_results("SELECT name, slug FROM  ". $wpdb->prefix . "terms 
+        WHERE term_id IN (SELECT term_id  FROM  ". $wpdb->prefix . "term_taxonomy  WHERE taxonomy = 'category'  AND count = 0 ) ");
+    $usedCategory = $totalCategory - count($unusedCategory);
+    
+    // get parent and child category
+    $totalParentCategory = count(get_categories('parent=0&hide_empty=0'));
+    $totalChildCategory = $totalCategory - $totalParentCategory;
+    
+    // find most and less used category
+    $mostArgs=array('orderby' => 'count','order' => 'DESC','hide_empty' => 0, 'parent' => 37, 'post_status'=>'publish');
+    $mostUsedcategories=get_categories($mostArgs);
+    /*$mostUsedcategories=get_terms( 
+   'category', 
+   array('orderby' => 'count','order' => 'DESC','hide_empty' => 0, 'child_of'=>37, 'parent' => 0)
+);*/
+    $mostArgs2=array('orderby' => 'count','order' => 'DESC','hide_empty' => 0, 'parent' => 75);
+    $mostUsedcategories2=get_categories($mostArgs2);
+
+    $lessArgs=array('orderby' => 'count','order' => 'ASC','hide_empty' => 0,'number' => 5);
+    $lessUsedcategories=get_categories($lessArgs);
+
+#var_dump($mostUsedcategories);die; ?>
 
     <?php #include_once('wp-show-stats-sidebar.php'); ?>
 
@@ -236,6 +375,81 @@ get_header(); ?>
                     document.getElementById('byYearChart').innerHTML = "<span class='nothingtodo'>There is nothing to show here for 'Posts By Year Stats' because there are no posts found.</span>";
                 <?php endif; ?>
                 
+
+                    var entrepreneurByYeardata = google.visualization.arrayToDataTable([
+                        ["Year", "Number of posts", {role: "style"}],
+                        <?php $sum=0;$i=0; foreach($entrereneuByWiseArray as $k => $val): $i++; ?>
+                            ["<?php echo $k; ?>", <?php echo $val; $sum+=$val;?>, "<?php echo $i%2==0 ? "#00ff00" : "0000ff"; ?>"],
+                        <?php endforeach; ?>
+                    ]);
+                    var entrepreneurByYearView = new google.visualization.DataView(entrepreneurByYeardata);
+                    entrepreneurByYearView.setColumns([0, 1,2]);
+                    var entrepreneurByYearoptions = {
+                        title: "Entrepreneur Jobs by year (Total: <?php echo $sum; ?>)",
+                        bar: {groupWidth: "70%"},
+                        legend: {position: "none"},
+                    };
+                    var entrepreneurByYearChart = new google.visualization.ColumnChart(document.getElementById("entrepreneurByYear"));
+                    entrepreneurByYearChart.draw(entrepreneurByYearView, entrepreneurByYearoptions);
+
+
+
+
+
+                    var clientByYeardata = google.visualization.arrayToDataTable([
+                        ["Year", "Number of posts", {role: "style"}],
+                        <?php $sum=0;$i=0; foreach($clientByWiseArray as $k => $val): $i++; ?>
+                            ["<?php echo $k; ?>", <?php echo $val; $sum+=$val;?>, "<?php echo $i%2==0 ? "#00ff00" : "0000ff"; ?>"],
+                        <?php endforeach; ?>
+                    ]);
+                    var clientByYearView = new google.visualization.DataView(clientByYeardata);
+                    clientByYearView.setColumns([0, 1,2]);
+                    var clientByYearoptions = {
+                        title: "Client Jobs by year (Total: <?php echo $sum; ?>)",
+                        bar: {groupWidth: "70%"},
+                        legend: {position: "none"},
+                    };
+                    var clientByYearChart = new google.visualization.ColumnChart(document.getElementById("clientByYearDiv"));
+                    clientByYearChart.draw(clientByYearView, clientByYearoptions);
+
+
+
+
+                    var partnerByYeardata = google.visualization.arrayToDataTable([
+                        ["Year", "Number of posts", {role: "style"}],
+                        <?php $sum=0;$i=0; foreach($partnerByWiseArray as $k => $val): $i++; ?>
+                            ["<?php echo $k; ?>", <?php echo $val;$sum+=$val; ?>, "<?php echo $i%2==0 ? "#00ff00" : "0000ff"; ?>"],
+                        <?php endforeach; ?>
+                    ]);
+                    var partnerByYearView = new google.visualization.DataView(partnerByYeardata);
+                    partnerByYearView.setColumns([0, 1,2]);
+                    var partnerByYearoptions = {
+                        title: "Partner Jobs by year (Total: <?php echo $sum; ?>)",
+                        bar: {groupWidth: "70%"},
+                        legend: {position: "none"},
+                    };
+                    var partnerByYearChart = new google.visualization.ColumnChart(document.getElementById("partnerByYearDiv"));
+                    partnerByYearChart.draw(partnerByYearView, partnerByYearoptions);
+
+
+
+
+                    var studyByYeardata = google.visualization.arrayToDataTable([
+                        ["Year", "Number of posts", {role: "style"}],
+                        <?php $sum=0;$i=0; foreach($studyByWiseArray as $k => $val): $i++; ?>
+                            ["<?php echo $k; ?>", <?php echo $val;$sum+=$val; ?>, "<?php echo $i%2==0 ? "#00ff00" : "0000ff"; ?>"],
+                        <?php endforeach; ?>
+                    ]);
+                    var studyByYearView = new google.visualization.DataView(studyByYeardata);
+                    studyByYearView.setColumns([0, 1,2]);
+                    var studyByYearoptions = {
+                        title: "Study Jobs by year (Total: <?php echo $sum; ?>)",
+                        bar: {groupWidth: "70%"},
+                        legend: {position: "none"},
+                    };
+                    var studyByYearChart = new google.visualization.ColumnChart(document.getElementById("studyByYearDiv"));
+                    studyByYearChart.draw(studyByYearView, studyByYearoptions);
+
                 // monthwise posts chart
                 <?php /*if(count($monthsArray) > 0): ?>
                     var monthwisedata = google.visualization.arrayToDataTable([
@@ -313,6 +527,7 @@ get_header(); ?>
         <hr>
 
         <?php
+
         // get total category
     $totalCategory = wp_count_terms('category');
     
